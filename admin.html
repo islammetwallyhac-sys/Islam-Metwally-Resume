@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم الموقع — إسلام متولي</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12161B; --brass:#B8905A; --brass-bright:#D9AE6E;
+    --panel:#1A2029; --line:rgba(184,144,90,0.28); --text:#EBE3D2; --text-dim:#9CA3AC;
+    --ok:#7FBF8C; --danger:#C97664;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--ink); color:var(--text); font-family:'Cairo','IBM Plex Sans',sans-serif;}
+  .top{position:sticky; top:0; z-index:20; background:rgba(18,22,27,0.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .top h1{font-size:16px; margin:0; font-weight:600;}
+  .top .sub{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim);}
+  .actions{display:flex; gap:8px; flex-wrap:wrap;}
+  button, .filebtn{
+    font-family:'Cairo',sans-serif; font-size:13px; font-weight:600;
+    border:1px solid var(--brass); background:transparent; color:var(--brass-bright);
+    padding:9px 16px; border-radius:4px; cursor:pointer; transition:background .2s;
+  }
+  button:hover, .filebtn:hover{background:rgba(184,144,90,0.14);}
+  button.solid{background:var(--brass); color:var(--ink);}
+  button.solid:hover{background:var(--brass-bright);}
+  button.danger{border-color:var(--danger); color:var(--danger);}
+  button.danger:hover{background:rgba(201,118,100,0.14);}
+  input[type=file]{display:none;}
+
+  .layout{display:grid; grid-template-columns:1fr 1fr; gap:0; height:calc(100vh - 60px);}
+  @media(max-width:980px){.layout{grid-template-columns:1fr; height:auto;}}
+  .form-pane{overflow-y:auto; padding:24px; border-left:1px solid var(--line);}
+  @media(max-width:980px){.form-pane{border-left:none; border-bottom:1px solid var(--line);}}
+  .preview-pane{background:#0c0f13; position:sticky; top:60px; align-self:start; height:calc(100vh - 60px);}
+  @media(max-width:980px){.preview-pane{position:static; height:70vh;}}
+  .preview-pane iframe{width:100%; height:100%; border:none;}
+
+  fieldset{border:1px solid var(--line); border-radius:6px; margin-bottom:22px; padding:16px; }
+  legend{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--brass-bright); padding:0 8px;}
+  label{display:block; font-size:12.5px; color:var(--text-dim); margin:12px 0 4px;}
+  input[type=text], textarea{
+    width:100%; background:#10141a; border:1px solid var(--line); color:var(--text);
+    border-radius:4px; padding:9px 10px; font-family:'IBM Plex Sans',sans-serif; font-size:13.5px;
+  }
+  textarea{min-height:64px; resize:vertical;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .card{border:1px solid var(--line); border-radius:6px; padding:14px; margin-bottom:12px; background:rgba(184,144,90,0.03);}
+  .card-head{display:flex; justify-content:space-between; align-items:center;}
+  .card-head b{font-size:13px;}
+  .hint{font-size:11px; color:var(--text-dim); margin-top:4px;}
+  .add-btn{margin-top:8px;}
+  .checkbox-row{display:flex; align-items:center; gap:8px; margin-top:10px;}
+  .status-msg{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ok);}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div>
+    <h1>لوحة تحكم موقع إسلام متولي</h1>
+    <div class="sub">عدّل أي بيانات ثم نزّل content.json وارفعه مكان القديم على الاستضافة</div>
+  </div>
+  <div class="actions">
+    <label class="filebtn">تحميل ملف content.json
+      <input type="file" id="fileInput" accept=".json">
+    </label>
+    <button onclick="refreshPreview()">تحديث المعاينة</button>
+    <button class="solid" onclick="downloadJson()">تنزيل content.json</button>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="form-pane" id="formPane"></div>
+  <div class="preview-pane"><iframe id="previewFrame" title="معاينة الموقع"></iframe></div>
+</div>
+
+<script>
+/* ============ DEFAULT DATA (matches the live content.json) ============ */
+let data = {
+  hero: {
+    eyebrow: "Document Control · EDMS · Aconex · ISO 9001",
+    docNo: "CV-IMM-2026", rev: "15+ YRS", status: "OPEN TO RELOCATION", issued: "2026",
+    stamp: "IMM", nameLine1: "Islam Muhammad", nameLine2: "Metwally",
+    role: "Senior Document Controller",
+    lede: "Fifteen-plus years keeping the paper trail behind EPC, infrastructure, hospitality and oil & gas mega-projects accurate, traceable and on time — across Egypt and the GCC.",
+    cvFile: "Islam-Metwally-CV.pdf"
+  },
+  about: {
+    paragraphs: [
+      "I run document control for four concurrent mega-projects at Hassan Allam Construction — the Dry Bulk Terminal, DP6, Infrastructure and Sewage Treatment Plant projects in Ras El Hekma — administering the Oracle Aconex Common Data Environment and leading a team of document controllers. Across 15+ years in EPC, infrastructure, hospitality and oil & gas work, I've owned the full lifecycle of a document: numbering, metadata, revisions, transmittals, submittals, RFIs, audits and closeout — the quiet infrastructure that keeps a project defensible.",
+      "Outside the register, I run <a href=\"https://www.instagram.com/islammetwally.photography\" target=\"_blank\" rel=\"noopener\">Hawk's Eye Media</a>, an independent photography and graphic design practice. Same eye for detail, different canvas."
+    ],
+    tags: ["Document Control Management","EDMS & Aconex Administration","Document Lifecycle Management","Transmittals, Submittals & RFIs","Revision & Version Control","ISO 9001 & QA/QC Compliance","Audit Preparation & Closeout","KPI Reporting & Power BI","Team Leadership & Supervision","Client / Consultant Coordination"]
+  },
+  experience: [
+    {docno:"001",company:"Hassan Allam Construction",title:"Sr. Document Controller",dates:"Jun 2026 – Present",location:"Ras El Hekma, Egypt",bullets:["Runs document control across four concurrent mega-projects: Dry Bulk Terminal, DP6, Infrastructure and STP","Administers the Oracle Aconex CDE and leads a team of two Document Controllers and one Senior Document Controller"]},
+    {docno:"002",company:"Semiramis Hotels IHG",title:"Senior Document Control",dates:"Feb 2026 – Jun 2026",location:"Cairo, Egypt",bullets:["Rebuilt document registers, submittals, RFIs and transmittal cycles end to end","Improved document turnaround efficiency by 100% through workflow optimization"]},
+    {docno:"003",company:"Elsewedy Electric Infrastructure",title:"Senior Document Controller",dates:"Apr 2023 – Feb 2026",location:"Cairo, Egypt",bullets:["Controlled 30,000+ documents across large-scale electrical & infrastructure EPC works","Mentored 5 Document Controllers across 5 concurrent projects; zero major non-conformities in audits"]},
+    {docno:"004",company:"Madkour Projects",title:"Senior Document Controller",dates:"Apr 2021 – Apr 2023",location:"Cairo, Egypt",bullets:["Ran document control for electrical and construction EPC contracts","Streamlined correspondence and transmittal workflows, cutting turnaround time and distribution errors"]},
+    {docno:"005",company:"Elsewedy Electric T&D",title:"Senior Document Controller",dates:"Apr 2018 – Apr 2021",location:"Cairo, Egypt",bullets:["Controlled high-volume documentation for up to 9 concurrent transmission & distribution projects","Built automated master document registers and tracking logs for real-time reporting"]},
+    {docno:"006",company:"Hassan Allam Construction",title:"Document Controller",dates:"Dec 2017 – Apr 2018",location:"Cairo, Egypt",bullets:["Managed document distribution between consultants, subcontractors and project teams","Implemented controlled access, archiving and retention procedures"]},
+    {docno:"007",company:"ISO Termica",title:"Document Controller & Site Coordinator",dates:"Mar 2011 – Nov 2017",location:"Cairo, Egypt",bullets:["Coordinated document control for construction and heat-exchanger projects","Acted as liaison between site teams and head office for timely submission and approval"]}
+  ],
+  projects: [
+    {num:"PRJ / 01",title:"ARKIVEX",desc:"A React-based enterprise document control platform built from scratch — registers, transmittals, dashboards and a bilingual Arabic/English RTL interface.",links:[],wide:false},
+    {num:"PRJ / 02",title:"Sheraton Montazah DCMS",desc:"An Excel-powered document control management system running the entire paper trail for the Sheraton Montazah Hotel renovation project.",links:[],wide:false},
+    {num:"PRJ / 03",title:"P0801 Dry Bulk Correspondence Log",desc:"A live incoming/outgoing letter log tracking correspondence between HILL, HAC and site teams on the Ras El Hekma Dry Bulk Excavation project.",links:[],wide:false},
+    {num:"PRJ / 04",title:"Water & Energy Dashboards",desc:"Freelance Power BI dashboards and analytical reports for the Saudi Ministry of Water, Al-Mekyal Saudi Company and EPC engineering teams in KSA.",links:[],wide:false},
+    {num:"PRJ / 05",title:"Hawk's Eye Media",desc:"An independent photography & graphic design studio — the creative counterweight to the control ledger.",links:[{label:"View on Behance",url:"https://www.behance.net/islammetwally"},{label:"View on Instagram",url:"https://www.instagram.com/islammetwally.photography"}],wide:true}
+  ],
+  contact: {
+    note: "Based in Egypt — open to international relocation, contract and long-term assignments.",
+    email: "Islam.Metwally@outlook.com",
+    phones: ["+201064675155","+201558767799"],
+    statusPill: "Available for contract & long-term assignments",
+    links: {
+      linkedin:"https://www.linkedin.com/in/islam-metwally87",
+      behance:"https://www.behance.net/islammetwally",
+      instagram:"https://www.instagram.com/islammetwally.photography",
+      facebook:"https://www.facebook.com/share/1BxxYDP9Ko/",
+      website:"https://k4kzb8w6hisx.space.minimax.io/#home",
+      whatsapp:"201064675155"
+    }
+  },
+  footer: "DOC NO: CV-IMM-2026 · STATUS: APPROVED · ISSUED 2026"
+};
+
+/* ============ FORM RENDERING ============ */
+const pane = document.getElementById('formPane');
+
+function el(tag, attrs={}, children=[]){
+  const e = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v])=>{
+    if(k==='html') e.innerHTML = v; else e.setAttribute(k,v);
+  });
+  (Array.isArray(children)?children:[children]).forEach(c=>{ if(c) e.appendChild(c); });
+  return e;
+}
+function field(labelText, value, onChange, multiline=false){
+  const wrap = document.createElement('div');
+  wrap.appendChild(el('label',{html:labelText}));
+  const input = multiline ? el('textarea') : el('input',{type:'text'});
+  input.value = value || '';
+  input.addEventListener('input', ()=>onChange(input.value));
+  wrap.appendChild(input);
+  return wrap;
+}
+
+function buildForm(){
+  pane.innerHTML = '';
+
+  /* --- HERO --- */
+  const fsHero = el('fieldset',{},[el('legend',{html:'الواجهة الرئيسية (Hero)'})]);
+  fsHero.appendChild(field('الاسم — السطر الأول', data.hero.nameLine1, v=>data.hero.nameLine1=v));
+  fsHero.appendChild(field('الاسم — السطر الثاني', data.hero.nameLine2, v=>data.hero.nameLine2=v));
+  fsHero.appendChild(field('المسمى الوظيفي', data.hero.role, v=>data.hero.role=v));
+  fsHero.appendChild(field('الوصف التعريفي (Lede)', data.hero.lede, v=>data.hero.lede=v, true));
+  fsHero.appendChild(field('السطر العلوي (Eyebrow)', data.hero.eyebrow, v=>data.hero.eyebrow=v));
+  const row1 = el('div',{class:'row2'});
+  row1.appendChild(field('رقم المستند (Doc No)', data.hero.docNo, v=>data.hero.docNo=v));
+  row1.appendChild(field('الخبرة (Rev)', data.hero.rev, v=>data.hero.rev=v));
+  fsHero.appendChild(row1);
+  const row2 = el('div',{class:'row2'});
+  row2.appendChild(field('الحالة (Status)', data.hero.status, v=>data.hero.status=v));
+  row2.appendChild(field('سنة الإصدار', data.hero.issued, v=>data.hero.issued=v));
+  fsHero.appendChild(row2);
+  fsHero.appendChild(field('حروف الختم (Stamp)', data.hero.stamp, v=>data.hero.stamp=v));
+  fsHero.appendChild(field('اسم ملف السيرة الذاتية PDF', data.hero.cvFile, v=>data.hero.cvFile=v));
+  const cvHint = el('div',{class:'hint',html:'يجب رفع ملف الـPDF بنفس هذا الاسم بجانب index.html على الاستضافة'});
+  fsHero.appendChild(cvHint);
+  pane.appendChild(fsHero);
+
+  /* --- ABOUT --- */
+  const fsAbout = el('fieldset',{},[el('legend',{html:'نبذة عني (About)'})]);
+  fsAbout.appendChild(field('الفقرات — كل فقرة في سطر منفصل', data.about.paragraphs.join('\n'), v=>data.about.paragraphs = v.split('\n').filter(x=>x.trim()!==''), true));
+  fsAbout.appendChild(field('المهارات — افصل كل مهارة بفاصلة ,', data.about.tags.join(', '), v=>data.about.tags = v.split(',').map(s=>s.trim()).filter(Boolean), true));
+  pane.appendChild(fsAbout);
+
+  /* --- EXPERIENCE --- */
+  const fsExp = el('fieldset',{},[el('legend',{html:'الخبرات (Experience)'})]);
+  data.experience.forEach((e,i)=>{
+    const card = el('div',{class:'card'});
+    const head = el('div',{class:'card-head'},[el('b',{html:`#${i+1} — ${e.company||''}`})]);
+    const del = el('button',{class:'danger'},[]); del.textContent='حذف';
+    del.onclick = ()=>{ data.experience.splice(i,1); buildForm(); };
+    head.appendChild(del);
+    card.appendChild(head);
+    card.appendChild(field('رقم المستند', e.docno, v=>e.docno=v));
+    card.appendChild(field('اسم الشركة', e.company, v=>{e.company=v; buildForm();}));
+    card.appendChild(field('المسمى الوظيفي', e.title, v=>e.title=v));
+    const r = el('div',{class:'row2'});
+    r.appendChild(field('التاريخ', e.dates, v=>e.dates=v));
+    r.appendChild(field('الموقع', e.location, v=>e.location=v));
+    card.appendChild(r);
+    card.appendChild(field('المهام — كل مهمة في سطر منفصل', (e.bullets||[]).join('\n'), v=>e.bullets=v.split('\n').filter(x=>x.trim()!==''), true));
+    fsExp.appendChild(card);
+  });
+  const addExp = el('button',{class:'add-btn'}); addExp.textContent='+ إضافة وظيفة جديدة';
+  addExp.onclick = ()=>{ data.experience.unshift({docno:String(data.experience.length+1).padStart(3,'0'),company:'',title:'',dates:'',location:'',bullets:['']}); buildForm(); };
+  fsExp.appendChild(addExp);
+  pane.appendChild(fsExp);
+
+  /* --- PROJECTS --- */
+  const fsProj = el('fieldset',{},[el('legend',{html:'المشاريع (Projects)'})]);
+  data.projects.forEach((p,i)=>{
+    const card = el('div',{class:'card'});
+    const head = el('div',{class:'card-head'},[el('b',{html:`#${i+1} — ${p.title||''}`})]);
+    const del = el('button',{class:'danger'}); del.textContent='حذف';
+    del.onclick = ()=>{ data.projects.splice(i,1); buildForm(); };
+    head.appendChild(del);
+    card.appendChild(head);
+    card.appendChild(field('رقم المشروع (مثال PRJ / 01)', p.num, v=>p.num=v));
+    card.appendChild(field('اسم المشروع', p.title, v=>{p.title=v; buildForm();}));
+    card.appendChild(field('الوصف', p.desc, v=>p.desc=v, true));
+    const linksStr = (p.links||[]).map(l=>`${l.label}|${l.url}`).join('\n');
+    card.appendChild(field('روابط (اختياري) — الصيغة: النص|الرابط — كل رابط في سطر', linksStr, v=>{
+      p.links = v.split('\n').filter(x=>x.trim()!=='').map(line=>{
+        const [label,url] = line.split('|');
+        return {label:(label||'').trim(), url:(url||'').trim()};
+      });
+    }, true));
+    const cb = el('div',{class:'checkbox-row'});
+    const cbInput = el('input',{type:'checkbox'}); cbInput.checked = !!p.wide;
+    cbInput.onchange = ()=> p.wide = cbInput.checked;
+    cb.appendChild(cbInput);
+    cb.appendChild(el('span',{html:'عرض كامل (بطاقة تمتد على العرض بالكامل)'}));
+    card.appendChild(cb);
+    fsProj.appendChild(card);
+  });
+  const addProj = el('button',{class:'add-btn'}); addProj.textContent='+ إضافة مشروع جديد';
+  addProj.onclick = ()=>{ data.projects.push({num:`PRJ / ${String(data.projects.length+1).padStart(2,'0')}`,title:'',desc:'',links:[],wide:false}); buildForm(); };
+  fsProj.appendChild(addProj);
+  pane.appendChild(fsProj);
+
+  /* --- CONTACT --- */
+  const fsContact = el('fieldset',{},[el('legend',{html:'التواصل (Contact)'})]);
+  fsContact.appendChild(field('نص التعريف', data.contact.note, v=>data.contact.note=v, true));
+  fsContact.appendChild(field('البريد الإلكتروني', data.contact.email, v=>data.contact.email=v));
+  fsContact.appendChild(field('أرقام الهاتف — كل رقم في سطر (بالصيغة الدولية +20...)', data.contact.phones.join('\n'), v=>data.contact.phones=v.split('\n').filter(x=>x.trim()!==''), true));
+  fsContact.appendChild(field('نص حالة التوفر', data.contact.statusPill, v=>data.contact.statusPill=v));
+  const linksFs = el('div',{},[el('label',{html:'روابط التواصل الاجتماعي'})]);
+  ['linkedin','behance','instagram','facebook','website'].forEach(key=>{
+    linksFs.appendChild(field(key, data.contact.links[key], v=>data.contact.links[key]=v));
+  });
+  linksFs.appendChild(field('whatsapp (رقم بدون + وبدون مسافات، مثال 20106...)', data.contact.links.whatsapp, v=>data.contact.links.whatsapp=v));
+  fsContact.appendChild(linksFs);
+  pane.appendChild(fsContact);
+
+  /* --- FOOTER --- */
+  const fsFooter = el('fieldset',{},[el('legend',{html:'تذييل الصفحة (Footer)'})]);
+  fsFooter.appendChild(field('نص التذييل', data.footer, v=>data.footer=v));
+  pane.appendChild(fsFooter);
+}
+
+/* ============ PREVIEW ============ */
+function siteTemplate(jsonStr){
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  :root{--ink:#12161B;--brass:#B8905A;--brass-bright:#D9AE6E;--ink-text:#EBE3D2;--ink-text-dim:#9CA3AC;--line:rgba(184,144,90,0.28);--radius:2px;--maxw:1080px;}
+  *{box-sizing:border-box;} body{margin:0;background:var(--ink);color:var(--ink-text);font-family:'IBM Plex Sans',sans-serif;padding-bottom:78px;}
+  a{color:inherit;} .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-bright);}
+  .sheet-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);display:flex;align-items:center;gap:14px;margin-bottom:34px;}
+  .sheet-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .hero{position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px;border-bottom:1px solid var(--line);overflow:hidden;}
+  .titleblock{position:absolute;top:40px;right:28px;border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-text-dim);background:rgba(24,29,36,.5);}
+  .titleblock div{padding:6px 14px;border-bottom:1px solid var(--line);white-space:nowrap;} .titleblock div:last-child{border-bottom:none;} .titleblock b{color:var(--brass-bright);}
+  .hero-inner{max-width:760px;} .hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(34px,6vw,64px);line-height:1.02;margin:18px 0 6px;}
+  .hero .role{font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--brass-bright);margin:0 0 22px;}
+  .hero p.lede{font-size:15.5px;line-height:1.7;color:var(--ink-text-dim);max-width:600px;margin:0 0 30px;}
+  .stamp{width:80px;height:80px;border:2px solid var(--brass);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:26px;}
+  .stamp::before{content:"";position:absolute;inset:6px;border:1px solid var(--brass);border-radius:50%;} .stamp span{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px;color:var(--brass-bright);}
+  .btn{font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;text-decoration:none;padding:12px 20px;border:1px solid var(--brass);border-radius:2px;display:inline-block;}
+  .btn.solid{background:var(--brass);color:var(--ink);} .btn.ghost{color:var(--brass-bright);} .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+  section{padding:70px 0;border-bottom:1px solid var(--line);} section:last-of-type{border-bottom:none;}
+  #about p{font-size:15.5px;line-height:1.8;max-width:660px;} .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:7px 12px;border:1px solid var(--line);color:var(--ink-text-dim);}
+  .register{position:relative;} .register::before{content:"";position:absolute;left:52px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .entry{position:relative;display:grid;grid-template-columns:104px 1fr;gap:0 28px;padding:22px 0;}
+  .entry .docno{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass);padding-top:3px;}
+  .entry .docno .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ink);border:1px solid var(--brass);margin-left:44px;margin-top:6px;}
+  .entry h3{font-family:'Fraunces',serif;font-size:19px;margin:0 0 3px;} .entry .meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-text-dim);margin-bottom:10px;}
+  .entry ul{margin:0;padding-left:18px;font-size:14px;line-height:1.7;}
+  .grid-projects{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .proj{background:var(--ink);padding:24px;} .proj.wide{grid-column:1/-1;} .proj .pnum{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--brass);}
+  .proj h3{font-family:'Fraunces',serif;font-size:18px;margin:8px 0;} .proj p{font-size:13.5px;color:var(--ink-text-dim);}
+  .proj a.plink{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass-bright);text-decoration:none;margin-right:14px;}
+  .contact-grid{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;} .contact-main p{font-size:15px;color:var(--ink-text-dim);max-width:480px;}
+  .contact-line{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;margin:14px 0;text-decoration:none;} .contact-line svg{width:15px;height:15px;color:var(--brass);}
+  .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;border:1px solid var(--brass);color:var(--brass-bright);padding:6px 11px;border-radius:20px;margin-top:22px;}
+  .status-pill .dot2{width:6px;height:6px;border-radius:50%;background:#7FBF8C;}
+  .roundels{display:flex;flex-wrap:wrap;gap:14px;} .roundel{width:48px;height:48px;border-radius:50%;border:1px solid var(--brass);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass-bright);text-decoration:none;gap:1px;}
+  .roundel small{font-size:6px;opacity:.75;} footer.credit{text-align:center;padding:26px 0 60px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-text-dim);}
+  h2.section-title{font-family:'Fraunces',serif;font-weight:600;font-size:26px;margin:0 0 6px;}
+  </style></head><body>
+  <div id="site-root"></div>
+  <script>
+  const ICONS = {
+    mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>',
+    phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>',
+    website:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>'
+  };
+  function renderSite(data){
+    const h=data.hero,a=data.about,exp=data.experience,proj=data.projects,c=data.contact;
+    const titleblock = '<div class="titleblock"><div>DOC NO: <b>'+h.docNo+'</b></div><div>REV: <b>'+h.rev+'</b></div><div>STATUS: <b>'+h.status+'</b></div><div>ISSUED: <b>'+h.issued+'</b></div></div>';
+    const heroHtml = '<header class="hero"><div class="wrap">'+titleblock+'<div class="hero-inner"><div class="stamp"><span>'+h.stamp+'</span></div><p class="eyebrow">'+h.eyebrow+'</p><h1>'+h.nameLine1+'<br>'+h.nameLine2+'</h1><p class="role">'+h.role+'</p><p class="lede">'+h.lede+'</p><div class="hero-cta"><a href="#" class="btn solid">Download CV</a><a href="#contact" class="btn ghost">Get in touch</a></div></div></div></header>';
+    const aboutHtml = '<section id="about"><div class="wrap"><div class="sheet-label">Sheet 01 — About</div><h2 class="section-title">A register for every revision.</h2>'+a.paragraphs.map(p=>'<p>'+p+'</p>').join('')+'<div class="tags">'+a.tags.map(t=>'<span class="tag">'+t+'</span>').join('')+'</div></div></section>';
+    const experienceHtml = '<section id="experience"><div class="wrap"><div class="sheet-label">Sheet 02 — Experience</div><h2 class="section-title" style="margin-bottom:30px;">Seven postings. One discipline.</h2><div class="register">'+exp.map(e=>'<div class="entry"><div class="docno">'+e.docno+'<div class="dot"></div></div><div><h3>'+e.company+'</h3><div class="meta">'+e.title+' · '+e.dates+' · '+e.location+'</div><ul>'+(e.bullets||[]).map(b=>'<li>'+b+'</li>').join('')+'</ul></div></div>').join('')+'</div></div></section>';
+    const projectsHtml = '<section id="projects"><div class="wrap"><div class="sheet-label">Sheet 03 — Projects</div><h2 class="section-title" style="margin-bottom:30px;">Systems built, not just used.</h2><div class="grid-projects">'+proj.map(p=>'<div class="proj '+(p.wide?'wide':'')+'"><div class="pnum">'+p.num+'</div><h3>'+p.title+'</h3><p>'+p.desc+'</p>'+(p.links||[]).map(l=>'<a class="plink" href="'+l.url+'" target="_blank">'+l.label+' →</a>').join('')+'</div>').join('')+'</div></div></section>';
+    const roundelDefs = [['linkedin','in'],['behance','Be'],['instagram','IG'],['facebook','f'],['website',ICONS.website]];
+    const contactHtml = '<section id="contact"><div class="wrap"><div class="sheet-label">Sheet 04 — Contact</div><h2 class="section-title" style="margin-bottom:26px;">Let\\'s route this to you.</h2><div class="contact-grid"><div class="contact-main"><p>'+c.note+'</p><a class="contact-line" href="#">'+ICONS.mail+' '+c.email+'</a>'+c.phones.map(p=>'<a class="contact-line" href="#">'+ICONS.phone+' '+p+'</a>').join('')+'<div class="status-pill"><span class="dot2"></span> '+c.statusPill+'</div></div><div class="roundels">'+roundelDefs.map(([k,l])=>c.links[k]?'<a class="roundel" href="#">'+l+'<small>'+k.toUpperCase()+'</small></a>':'').join('')+'</div></div></div><footer class="credit">'+data.footer+'</footer></section>';
+    document.getElementById('site-root').innerHTML = heroHtml+aboutHtml+experienceHtml+projectsHtml+contactHtml;
+  }
+  renderSite(${jsonStr});
+  <\/script></body></html>`;
+}
+
+function refreshPreview(){
+  document.getElementById('previewFrame').srcdoc = siteTemplate(JSON.stringify(data));
+}
+
+/* ============ FILE LOAD / DOWNLOAD ============ */
+document.getElementById('fileInput').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    try{
+      data = JSON.parse(evt.target.result);
+      buildForm();
+      refreshPreview();
+      alert('تم تحميل الملف بنجاح');
+    }catch(err){
+      alert('الملف غير صالح: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+});
+
+function downloadJson(){
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'content.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ============ INIT ============ */
+buildForm();
+refreshPreview();
+</script>
+</body>
+</html>

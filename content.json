@@ -1,0 +1,167 @@
+{
+  "hero": {
+    "eyebrow": "Document Control · EDMS · Aconex · ISO 9001",
+    "docNo": "CV-IMM-2026",
+    "rev": "15+ YRS",
+    "status": "OPEN TO RELOCATION",
+    "issued": "2026",
+    "stamp": "IMM",
+    "nameLine1": "Islam Muhammad",
+    "nameLine2": "Metwally",
+    "role": "Senior Document Controller",
+    "lede": "Fifteen-plus years keeping the paper trail behind EPC, infrastructure, hospitality and oil & gas mega-projects accurate, traceable and on time — across Egypt and the GCC.",
+    "cvFile": "Islam-Metwally-CV.pdf"
+  },
+  "about": {
+    "paragraphs": [
+      "I run document control for four concurrent mega-projects at Hassan Allam Construction — the Dry Bulk Terminal, DP6, Infrastructure and Sewage Treatment Plant projects in Ras El Hekma — administering the Oracle Aconex Common Data Environment and leading a team of document controllers. Across 15+ years in EPC, infrastructure, hospitality and oil & gas work, I've owned the full lifecycle of a document: numbering, metadata, revisions, transmittals, submittals, RFIs, audits and closeout — the quiet infrastructure that keeps a project defensible.",
+      "Outside the register, I run <a href=\"https://www.instagram.com/islammetwally.photography\" target=\"_blank\" rel=\"noopener\">Hawk's Eye Media</a>, an independent photography and graphic design practice. Same eye for detail, different canvas."
+    ],
+    "tags": [
+      "Document Control Management",
+      "EDMS & Aconex Administration",
+      "Document Lifecycle Management",
+      "Transmittals, Submittals & RFIs",
+      "Revision & Version Control",
+      "ISO 9001 & QA/QC Compliance",
+      "Audit Preparation & Closeout",
+      "KPI Reporting & Power BI",
+      "Team Leadership & Supervision",
+      "Client / Consultant Coordination"
+    ]
+  },
+  "experience": [
+    {
+      "docno": "001",
+      "company": "Hassan Allam Construction",
+      "title": "Sr. Document Controller",
+      "dates": "Jun 2026 – Present",
+      "location": "Ras El Hekma, Egypt",
+      "bullets": [
+        "Runs document control across four concurrent mega-projects: Dry Bulk Terminal, DP6, Infrastructure and STP",
+        "Administers the Oracle Aconex CDE and leads a team of two Document Controllers and one Senior Document Controller"
+      ]
+    },
+    {
+      "docno": "002",
+      "company": "Semiramis Hotels IHG",
+      "title": "Senior Document Control",
+      "dates": "Feb 2026 – Jun 2026",
+      "location": "Cairo, Egypt",
+      "bullets": [
+        "Rebuilt document registers, submittals, RFIs and transmittal cycles end to end",
+        "Improved document turnaround efficiency by 100% through workflow optimization"
+      ]
+    },
+    {
+      "docno": "003",
+      "company": "Elsewedy Electric Infrastructure",
+      "title": "Senior Document Controller",
+      "dates": "Apr 2023 – Feb 2026",
+      "location": "Cairo, Egypt",
+      "bullets": [
+        "Controlled 30,000+ documents across large-scale electrical & infrastructure EPC works",
+        "Mentored 5 Document Controllers across 5 concurrent projects; zero major non-conformities in audits"
+      ]
+    },
+    {
+      "docno": "004",
+      "company": "Madkour Projects",
+      "title": "Senior Document Controller",
+      "dates": "Apr 2021 – Apr 2023",
+      "location": "Cairo, Egypt",
+      "bullets": [
+        "Ran document control for electrical and construction EPC contracts",
+        "Streamlined correspondence and transmittal workflows, cutting turnaround time and distribution errors"
+      ]
+    },
+    {
+      "docno": "005",
+      "company": "Elsewedy Electric T&D",
+      "title": "Senior Document Controller",
+      "dates": "Apr 2018 – Apr 2021",
+      "location": "Cairo, Egypt",
+      "bullets": [
+        "Controlled high-volume documentation for up to 9 concurrent transmission & distribution projects",
+        "Built automated master document registers and tracking logs for real-time reporting"
+      ]
+    },
+    {
+      "docno": "006",
+      "company": "Hassan Allam Construction",
+      "title": "Document Controller",
+      "dates": "Dec 2017 – Apr 2018",
+      "location": "Cairo, Egypt",
+      "bullets": [
+        "Managed document distribution between consultants, subcontractors and project teams",
+        "Implemented controlled access, archiving and retention procedures"
+      ]
+    },
+    {
+      "docno": "007",
+      "company": "ISO Termica",
+      "title": "Document Controller & Site Coordinator",
+      "dates": "Mar 2011 – Nov 2017",
+      "location": "Cairo, Egypt",
+      "bullets": [
+        "Coordinated document control for construction and heat-exchanger projects",
+        "Acted as liaison between site teams and head office for timely submission and approval"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "num": "PRJ / 01",
+      "title": "ARKIVEX",
+      "desc": "A React-based enterprise document control platform built from scratch — registers, transmittals, dashboards and a bilingual Arabic/English RTL interface.",
+      "links": [],
+      "wide": false
+    },
+    {
+      "num": "PRJ / 02",
+      "title": "Sheraton Montazah DCMS",
+      "desc": "An Excel-powered document control management system running the entire paper trail for the Sheraton Montazah Hotel renovation project.",
+      "links": [],
+      "wide": false
+    },
+    {
+      "num": "PRJ / 03",
+      "title": "P0801 Dry Bulk Correspondence Log",
+      "desc": "A live incoming/outgoing letter log tracking correspondence between HILL, HAC and site teams on the Ras El Hekma Dry Bulk Excavation project.",
+      "links": [],
+      "wide": false
+    },
+    {
+      "num": "PRJ / 04",
+      "title": "Water & Energy Dashboards",
+      "desc": "Freelance Power BI dashboards and analytical reports for the Saudi Ministry of Water, Al-Mekyal Saudi Company and EPC engineering teams in KSA.",
+      "links": [],
+      "wide": false
+    },
+    {
+      "num": "PRJ / 05",
+      "title": "Hawk's Eye Media",
+      "desc": "An independent photography & graphic design studio — the creative counterweight to the control ledger.",
+      "links": [
+        {"label": "View on Behance", "url": "https://www.behance.net/islammetwally"},
+        {"label": "View on Instagram", "url": "https://www.instagram.com/islammetwally.photography"}
+      ],
+      "wide": true
+    }
+  ],
+  "contact": {
+    "note": "Based in Egypt — open to international relocation, contract and long-term assignments.",
+    "email": "Islam.Metwally@outlook.com",
+    "phones": ["+201064675155", "+201558767799"],
+    "statusPill": "Available for contract & long-term assignments",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/islam-metwally87",
+      "behance": "https://www.behance.net/islammetwally",
+      "instagram": "https://www.instagram.com/islammetwally.photography",
+      "facebook": "https://www.facebook.com/share/1BxxYDP9Ko/",
+      "website": "https://k4kzb8w6hisx.space.minimax.io/#home",
+      "whatsapp": "201064675155"
+    }
+  },
+  "footer": "DOC NO: CV-IMM-2026 · STATUS: APPROVED · ISSUED 2026"
+}

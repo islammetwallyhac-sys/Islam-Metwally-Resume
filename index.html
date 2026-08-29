@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Islam Muhammad Metwally — Senior Document Controller</title>
+<meta name="description" content="Islam Muhammad Metwally — Senior Document Controller, Document Control & EDMS specialist across EPC, infrastructure, hospitality and oil & gas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12161B;
+    --ink-2:#1A2029;
+    --paper:#EFE7D8;
+    --paper-2:#E5DBC6;
+    --brass:#B8905A;
+    --brass-bright:#D9AE6E;
+    --teal:#2C4C56;
+    --ink-text:#EBE3D2;
+    --ink-text-dim:#9CA3AC;
+    --paper-text:#1B1F24;
+    --line:rgba(184,144,90,0.28);
+    --radius:2px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--ink-text);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:78px;
+  }
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+  }
+  .sheet-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:34px;
+  }
+  .sheet-label::after{content:""; flex:1; height:1px; background:var(--line);}
+
+  /* ---------- HERO / TITLE BLOCK ---------- */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:80px 0 60px;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .reg-mark{
+    position:absolute; width:22px; height:22px; opacity:0.55; pointer-events:none;
+  }
+  .reg-mark::before, .reg-mark::after{content:""; position:absolute; background:var(--brass);}
+  .reg-mark::before{width:100%; height:1px; top:50%; left:0;}
+  .reg-mark::after{width:1px; height:100%; left:50%; top:0;}
+  .reg-mark.tl{top:26px; left:20px;}
+  .reg-mark.tr{top:26px; right:20px;}
+  .reg-mark.bl{bottom:26px; left:20px;}
+  .reg-mark.br{bottom:26px; right:20px;}
+  @media(max-width:640px){.reg-mark{display:none;}}
+
+  .titleblock{
+    position:absolute;
+    top:60px; right:28px;
+    border:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    color:var(--ink-text-dim);
+    background:rgba(24,29,36,0.5);
+  }
+  .titleblock div{padding:6px 14px; border-bottom:1px solid var(--line); white-space:nowrap;}
+  .titleblock div:last-child{border-bottom:none;}
+  .titleblock b{color:var(--brass-bright); font-weight:600;}
+  @media(max-width:640px){.titleblock{position:static; margin-bottom:36px; width:fit-content;}}
+
+  .hero-inner{max-width:760px;}
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(40px, 6.4vw, 76px);
+    line-height:1.02;
+    margin:18px 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .hero .role{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(17px, 2.2vw, 23px);
+    color:var(--brass-bright);
+    margin:0 0 22px;
+  }
+  .hero p.lede{
+    font-size:16.5px;
+    line-height:1.7;
+    color:var(--ink-text-dim);
+    max-width:600px;
+    margin:0 0 34px;
+  }
+  .stamp{
+    width:96px; height:96px;
+    border:2px solid var(--brass);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    margin-bottom:30px;
+    animation:stampin 0.7s cubic-bezier(.2,1.6,.4,1) 0.15s both;
+    flex-shrink:0;
+  }
+  .stamp::before{
+    content:"";
+    position:absolute; inset:6px;
+    border:1px solid var(--brass);
+    border-radius:50%;
+  }
+  .stamp span{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:0.03em;
+    color:var(--brass-bright);
+  }
+  @keyframes stampin{
+    0%{opacity:0; transform:rotate(-26deg) scale(1.5);}
+    100%{opacity:1; transform:rotate(-8deg) scale(1);}
+  }
+
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:13px 22px;
+    border:1px solid var(--brass);
+    border-radius:var(--radius);
+    transition:background 0.2s, color 0.2s;
+    display:inline-block;
+  }
+  .btn.solid{background:var(--brass); color:var(--ink);}
+  .btn.solid:hover{background:var(--brass-bright);}
+  .btn.ghost{color:var(--brass-bright);}
+  .btn.ghost:hover{background:rgba(184,144,90,0.12);}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:100px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  #about p{font-size:16.5px; line-height:1.8; color:var(--ink-text); max-width:660px;}
+  .tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:34px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    padding:8px 13px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    color:var(--ink-text-dim);
+  }
+
+  /* ---------- EXPERIENCE / REGISTER ---------- */
+  .register{position:relative;}
+  .register::before{
+    content:""; position:absolute; left:52px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  @media(max-width:640px){.register::before{left:36px;}}
+  .entry{
+    position:relative;
+    display:grid;
+    grid-template-columns:104px 1fr;
+    gap:0 28px;
+    padding:26px 0;
+  }
+  @media(max-width:640px){.entry{grid-template-columns:70px 1fr;}}
+  .entry .docno{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--brass);
+    padding-top:3px;
+  }
+  .entry .docno .dot{
+    display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:var(--ink); border:1px solid var(--brass);
+    margin-left:44px; margin-top:6px; position:relative; left:0;
+  }
+  @media(max-width:640px){.entry .docno .dot{margin-left:26px;}}
+  .entry h3{font-family:'Fraunces', serif; font-weight:600; font-size:21px; margin:0 0 3px;}
+  .entry .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-text-dim);
+    margin-bottom:12px;
+    letter-spacing:0.02em;
+  }
+  .entry ul{margin:0; padding-left:18px; color:var(--ink-text); font-size:15px; line-height:1.75;}
+  .entry ul li{margin-bottom:4px;}
+
+  /* ---------- PROJECTS ---------- */
+  .grid-projects{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media(max-width:720px){.grid-projects{grid-template-columns:1fr;}}
+  .proj{background:var(--ink); padding:30px 28px;}
+  .proj .pnum{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--brass); letter-spacing:0.08em;}
+  .proj h3{font-family:'Fraunces', serif; font-size:20px; font-weight:600; margin:10px 0 8px;}
+  .proj p{font-size:14.5px; line-height:1.65; color:var(--ink-text-dim); margin:0 0 12px;}
+  .proj a.plink{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--brass-bright); text-decoration:none; letter-spacing:0.03em;}
+  .proj a.plink:hover{text-decoration:underline;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:flex; flex-wrap:wrap; gap:50px; justify-content:space-between;}
+  .contact-main{flex:1; min-width:280px;}
+  .contact-main p{font-size:16px; line-height:1.75; color:var(--ink-text-dim); max-width:480px;}
+  .contact-line{
+    display:flex; align-items:center; gap:12px;
+    font-family:'IBM Plex Mono', monospace; font-size:14.5px;
+    margin:16px 0; text-decoration:none; color:var(--ink-text);
+    width:fit-content;
+  }
+  .contact-line svg{flex-shrink:0; width:17px; height:17px; color:var(--brass);}
+  .contact-line:hover{color:var(--brass-bright);}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    border:1px solid var(--brass); color:var(--brass-bright); padding:7px 12px; border-radius:20px; margin-top:26px;
+  }
+  .status-pill .dot2{width:6px; height:6px; border-radius:50%; background:#7FBF8C;}
+
+  .roundels{display:flex; flex-wrap:wrap; gap:16px; min-width:260px;}
+  .roundel{
+    width:54px; height:54px; border-radius:50%; border:1px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:600; letter-spacing:0.02em;
+    color:var(--brass-bright); text-decoration:none; transition:background 0.2s, transform 0.2s;
+    flex-direction:column; gap:1px;
+  }
+  .roundel:hover{background:rgba(184,144,90,0.14); transform:translateY(-2px);}
+  .roundel small{font-size:6.5px; opacity:0.75; letter-spacing:0.1em;}
+
+  footer.credit{
+    text-align:center; padding:34px 0 100px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-text-dim); letter-spacing:0.04em;
+  }
+
+  /* ---------- BOTTOM TAB BAR ---------- */
+  .tabbar{
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+    background:rgba(18,22,27,0.88);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);
+    display:flex; align-items:stretch;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabbar::-webkit-scrollbar{display:none;}
+  .tabbar .tab{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    text-decoration:none; color:var(--ink-text-dim);
+    padding:10px 18px; flex:0 0 auto;
+    font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    border-top:2px solid transparent;
+    transition:color 0.2s, border-color 0.2s;
+  }
+  .tabbar .tab svg{width:19px; height:19px;}
+  .tabbar .tab.active{color:var(--brass-bright); border-top-color:var(--brass);}
+  .tabbar .divider{width:1px; background:var(--line); margin:10px 4px; flex:0 0 auto;}
+  .tabbar .social{
+    display:flex; align-items:center; justify-content:center;
+    padding:0 12px; flex:0 0 auto; text-decoration:none; color:var(--ink-text-dim);
+    transition:color 0.2s;
+  }
+  .tabbar .social:hover{color:var(--brass-bright);}
+  .tabbar .social svg{width:17px; height:17px;}
+
+  h2.section-title{
+    font-family:'Fraunces', serif; font-weight:600; font-size:clamp(28px,4vw,38px);
+    margin:0 0 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="reg-mark tl"></div><div class="reg-mark tr"></div>
+  <div class="reg-mark bl"></div><div class="reg-mark br"></div>
+  <div class="wrap">
+    <div class="titleblock">
+      <div>DOC NO: <b>CV&#8209;IMM&#8209;2026</b></div>
+      <div>REV: <b>15+ YRS</b></div>
+      <div>STATUS: <b>OPEN TO RELOCATION</b></div>
+      <div>ISSUED: <b>2026</b></div>
+    </div>
+    <div class="hero-inner">
+      <div class="stamp"><span>IMM</span></div>
+      <p class="eyebrow">Document Control &middot; EDMS &middot; Aconex &middot; ISO 9001</p>
+      <h1>Islam Muhammad<br>Metwally</h1>
+      <p class="role">Senior Document Controller</p>
+      <p class="lede">Fifteen-plus years keeping the paper trail behind EPC, infrastructure, hospitality and oil &amp; gas mega-projects accurate, traceable and on time — across Egypt and the GCC.</p>
+      <div class="hero-cta">
+        <a href="Islam-Metwally-CV.pdf" class="btn solid" download>Download CV</a>
+        <a href="#contact" class="btn ghost">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap reveal">
+    <div class="sheet-label">Sheet 01 — About</div>
+    <h2 class="section-title">A register for every revision.</h2>
+    <p>I run document control for four concurrent mega-projects at Hassan Allam Construction — the Dry Bulk Terminal, DP6, Infrastructure and Sewage Treatment Plant projects in Ras El Hekma — administering the Oracle Aconex Common Data Environment and leading a team of document controllers. Across 15+ years in EPC, infrastructure, hospitality and oil &amp; gas work, I've owned the full lifecycle of a document: numbering, metadata, revisions, transmittals, submittals, RFIs, audits and closeout — the quiet infrastructure that keeps a project defensible.</p>
+    <p>Outside the register, I run <a href="https://www.instagram.com/islammetwally.photography" target="_blank" rel="noopener">Hawk's Eye Media</a>, an independent photography and graphic design practice. Same eye for detail, different canvas.</p>
+    <div class="tags">
+      <span class="tag">Document Control Management</span>
+      <span class="tag">EDMS &amp; Aconex Administration</span>
+      <span class="tag">Document Lifecycle Management</span>
+      <span class="tag">Transmittals, Submittals &amp; RFIs</span>
+      <span class="tag">Revision &amp; Version Control</span>
+      <span class="tag">ISO 9001 &amp; QA/QC Compliance</span>
+      <span class="tag">Audit Preparation &amp; Closeout</span>
+      <span class="tag">KPI Reporting &amp; Power BI</span>
+      <span class="tag">Team Leadership &amp; Supervision</span>
+      <span class="tag">Client / Consultant Coordination</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience">
+  <div class="wrap reveal">
+    <div class="sheet-label">Sheet 02 — Experience</div>
+    <h2 class="section-title" style="margin-bottom:40px;">Seven postings. One discipline.</h2>
+
+    <div class="register">
+      <div class="entry">
+        <div class="docno">001<div class="dot"></div></div>
+        <div>
+          <h3>Hassan Allam Construction</h3>
+          <div class="meta">Sr. Document Controller &nbsp;·&nbsp; Jun 2026 – Present &nbsp;·&nbsp; Ras El Hekma, Egypt</div>
+          <ul>
+            <li>Runs document control across four concurrent mega-projects: Dry Bulk Terminal, DP6, Infrastructure and STP</li>
+            <li>Administers the Oracle Aconex CDE and leads a team of two Document Controllers and one Senior Document Controller</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="docno">002<div class="dot"></div></div>
+        <div>
+          <h3>Semiramis Hotels IHG</h3>
+          <div class="meta">Senior Document Control &nbsp;·&nbsp; Feb 2026 – Jun 2026 &nbsp;·&nbsp; Cairo, Egypt</div>
+          <ul>
+            <li>Rebuilt document registers, submittals, RFIs and transmittal cycles end to end</li>
+            <li>Improved document turnaround efficiency by 100% through workflow optimization</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="docno">003<div class="dot"></div></div>
+        <div>
+          <h3>Elsewedy Electric Infrastructure</h3>
+          <div class="meta">Senior Document Controller &nbsp;·&nbsp; Apr 2023 – Feb 2026 &nbsp;·&nbsp; Cairo, Egypt</div>
+          <ul>
+            <li>Controlled 30,000+ documents across large-scale electrical &amp; infrastructure EPC works</li>
+            <li>Mentored 5 Document Controllers across 5 concurrent projects; zero major non-conformities in audits</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="docno">004<div class="dot"></div></div>
+        <div>
+          <h3>Madkour Projects</h3>
+          <div class="meta">Senior Document Controller &nbsp;·&nbsp; Apr 2021 – Apr 2023 &nbsp;·&nbsp; Cairo, Egypt</div>
+          <ul>
+            <li>Ran document control for electrical and construction EPC contracts</li>
+            <li>Streamlined correspondence and transmittal workflows, cutting turnaround time and distribution errors</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="docno">005<div class="dot"></div></div>
+        <div>
+          <h3>Elsewedy Electric T&amp;D</h3>
+          <div class="meta">Senior Document Controller &nbsp;·&nbsp; Apr 2018 – Apr 2021 &nbsp;·&nbsp; Cairo, Egypt</div>
+          <ul>
+            <li>Controlled high-volume documentation for up to 9 concurrent transmission &amp; distribution projects</li>
+            <li>Built automated master document registers and tracking logs for real-time reporting</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="docno">006<div class="dot"></div></div>
+        <div>
+          <h3>Hassan Allam Construction</h3>
+          <div class="meta">Document Controller &nbsp;·&nbsp; Dec 2017 – Apr 2018 &nbsp;·&nbsp; Cairo, Egypt</div>
+          <ul>
+            <li>Managed document distribution between consultants, subcontractors and project teams</li>
+            <li>Implemented controlled access, archiving and retention procedures</li>
+          </ul>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="docno">007<div class="dot"></div></div>
+        <div>
+          <h3>ISO Termica</h3>
+          <div class="meta">Document Controller &amp; Site Coordinator &nbsp;·&nbsp; Mar 2011 – Nov 2017 &nbsp;·&nbsp; Cairo, Egypt</div>
+          <ul>
+            <li>Coordinated document control for construction and heat-exchanger projects</li>
+            <li>Acted as liaison between site teams and head office for timely submission and approval</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <div class="wrap reveal">
+    <div class="sheet-label">Sheet 03 — Projects</div>
+    <h2 class="section-title" style="margin-bottom:40px;">Systems built, not just used.</h2>
+  </div>
+  <div class="wrap reveal">
+    <div class="grid-projects">
+      <div class="proj">
+        <div class="pnum">PRJ / 01</div>
+        <h3>ARKIVEX</h3>
+        <p>A React-based enterprise document control platform built from scratch — registers, transmittals, dashboards and a bilingual Arabic/English RTL interface.</p>
+      </div>
+      <div class="proj">
+        <div class="pnum">PRJ / 02</div>
+        <h3>Sheraton Montazah DCMS</h3>
+        <p>An Excel-powered document control management system running the entire paper trail for the Sheraton Montazah Hotel renovation project.</p>
+      </div>
+      <div class="proj">
+        <div class="pnum">PRJ / 03</div>
+        <h3>P0801 Dry Bulk Correspondence Log</h3>
+        <p>A live incoming/outgoing letter log tracking correspondence between HILL, HAC and site teams on the Ras El Hekma Dry Bulk Excavation project.</p>
+      </div>
+      <div class="proj">
+        <div class="pnum">PRJ / 04</div>
+        <h3>Water &amp; Energy Dashboards</h3>
+        <p>Freelance Power BI dashboards and analytical reports for the Saudi Ministry of Water, Al-Mekyal Saudi Company and EPC engineering teams in KSA.</p>
+      </div>
+      <div class="proj" style="grid-column:1/-1;">
+        <div class="pnum">PRJ / 05</div>
+        <h3>Hawk's Eye Media</h3>
+        <p>An independent photography &amp; graphic design studio — the creative counterweight to the control ledger.</p>
+        <a class="plink" href="https://www.behance.net/islammetwally" target="_blank" rel="noopener">View on Behance &rarr;</a>
+        &nbsp;&nbsp;
+        <a class="plink" href="https://www.instagram.com/islammetwally.photography" target="_blank" rel="noopener">View on Instagram &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="sheet-label">Sheet 04 — Contact</div>
+    <h2 class="section-title" style="margin-bottom:34px;">Let's route this to you.</h2>
+    <div class="contact-grid">
+      <div class="contact-main">
+        <p>Based in Egypt — open to international relocation, contract and long-term assignments.</p>
+        <a class="contact-line" href="mailto:Islam.Metwally@outlook.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+          Islam.Metwally@outlook.com
+        </a>
+        <a class="contact-line" href="tel:+201064675155">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+          +20 106 467 5155
+        </a>
+        <a class="contact-line" href="tel:+201558767799">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+          +20 155 876 7799
+        </a>
+        <div class="status-pill"><span class="dot2"></span> Available for contract &amp; long-term assignments</div>
+      </div>
+      <div class="roundels">
+        <a class="roundel" href="https://www.linkedin.com/in/islam-metwally87" target="_blank" rel="noopener">in<small>LINKEDIN</small></a>
+        <a class="roundel" href="https://www.behance.net/islammetwally" target="_blank" rel="noopener">Be<small>BEHANCE</small></a>
+        <a class="roundel" href="https://www.instagram.com/islammetwally.photography" target="_blank" rel="noopener">IG<small>INSTAGRAM</small></a>
+        <a class="roundel" href="https://www.facebook.com/share/1BxxYDP9Ko/" target="_blank" rel="noopener">f<small>FACEBOOK</small></a>
+        <a class="roundel" href="https://k4kzb8w6hisx.space.minimax.io/#home" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+          <small>WEBSITE</small>
+        </a>
+      </div>
+    </div>
+  </div>
+  <footer class="credit">DOC NO: CV&#8209;IMM&#8209;2026 &nbsp;·&nbsp; STATUS: APPROVED &nbsp;·&nbsp; ISSUED 2026</footer>
+</section>
+
+<!-- ================= BOTTOM TAB BAR ================= -->
+<nav class="tabbar" id="tabbar">
+  <a href="#about" class="tab" data-tab="about">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c1.5-4 4.2-6 7.5-6s6 2 7.5 6"/></svg>
+    About
+  </a>
+  <a href="#experience" class="tab" data-tab="experience">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+    Experience
+  </a>
+  <a href="#projects" class="tab" data-tab="projects">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h6l2 2h10v10H3z"/></svg>
+    Projects
+  </a>
+  <a href="#contact" class="tab" data-tab="contact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v13H8l-4 4z"/></svg>
+    Contact
+  </a>
+  <div class="divider"></div>
+  <a class="social" href="mailto:Islam.Metwally@outlook.com" title="Email" aria-label="Email">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+  </a>
+  <a class="social" href="tel:+201064675155" title="Phone" aria-label="Phone">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+  </a>
+  <a class="social" href="https://wa.me/201064675155" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l1.3-3.9A8 8 0 1 1 8.9 19L4 20z"/><path d="M9 10c0 3 2 5 5 5"/></svg>
+  </a>
+  <a class="social" href="https://www.linkedin.com/in/islam-metwally87" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+  </a>
+  <a class="social" href="https://www.behance.net/islammetwally" target="_blank" rel="noopener" title="Behance" aria-label="Behance">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 15V9h2.2a1.8 1.8 0 0 1 0 3.6H9M9 12.6h2.4a1.8 1.8 0 0 1 0 3.6"/></svg>
+  </a>
+  <a class="social" href="https://www.instagram.com/islammetwally.photography" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+  </a>
+  <a class="social" href="https://www.facebook.com/share/1BxxYDP9Ko/" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 9h3V6h-3a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h3l1-3h-4v-2a1 1 0 0 1 1-1z"/></svg>
+  </a>
+  <a class="social" href="https://k4kzb8w6hisx.space.minimax.io/#home" target="_blank" rel="noopener" title="Website" aria-label="Website">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+  </a>
+</nav>
+
+<script>
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); revealObs.unobserve(e.target); } });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>revealObs.observe(el));
+
+  // active tab tracking
+  const tabs = document.querySelectorAll('.tabbar .tab');
+  const sections = ['about','experience','projects','contact'].map(id=>document.getElementById(id));
+  const tabObs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        tabs.forEach(t=>t.classList.toggle('active', t.dataset.tab === entry.target.id));
+      }
+    });
+  }, {threshold:0.35, rootMargin:'0px 0px -40% 0px'});
+  sections.forEach(s=>{ if(s) tabObs.observe(s); });
+</script>
+
+</body>
+</html>

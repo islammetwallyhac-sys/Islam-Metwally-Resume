@@ -6,8 +6,8 @@
     "status": "OPEN TO RELOCATION",
     "issued": "2026",
     "stamp": "IMM",
-    "nameLine1": "Islam Muhammad",
-    "nameLine2": "Metwally",
+    "nameLine1": "Islam Muhammad Metwally",
+    "nameLine2": "",
     "role": "Senior Document Controller",
     "lede": "Fifteen-plus years keeping the paper trail behind EPC, infrastructure, hospitality and oil & gas mega-projects accurate, traceable and on time — across Egypt and the GCC.",
     "cvFile": "Islam-Metwally-CV.pdf"
@@ -143,8 +143,14 @@
       "title": "Hawk's Eye Media",
       "desc": "An independent photography & graphic design studio — the creative counterweight to the control ledger.",
       "links": [
-        {"label": "View on Behance", "url": "https://www.behance.net/islammetwally"},
-        {"label": "View on Instagram", "url": "https://www.instagram.com/islammetwally.photography"}
+        {
+          "label": "View on Behance",
+          "url": "https://www.behance.net/islammetwally"
+        },
+        {
+          "label": "View on Instagram",
+          "url": "https://www.instagram.com/islammetwally.photography"
+        }
       ],
       "wide": true
     }
@@ -152,7 +158,10 @@
   "contact": {
     "note": "Based in Egypt — open to international relocation, contract and long-term assignments.",
     "email": "Islam.Metwally@outlook.com",
-    "phones": ["+201064675155", "+201558767799"],
+    "phones": [
+      "+201064675155",
+      "+201558767799"
+    ],
     "statusPill": "Available for contract & long-term assignments",
     "links": {
       "linkedin": "https://www.linkedin.com/in/islam-metwally87",

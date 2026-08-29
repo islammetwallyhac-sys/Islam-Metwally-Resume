@@ -168,8 +168,43 @@ function buildForm(){
   fsHero.appendChild(row2);
   fsHero.appendChild(field('حروف الختم (Stamp)', data.hero.stamp, v=>data.hero.stamp=v));
   fsHero.appendChild(field('اسم ملف السيرة الذاتية PDF', data.hero.cvFile, v=>data.hero.cvFile=v));
-  const cvHint = el('div',{class:'hint',html:'يجب رفع ملف الـPDF بنفس هذا الاسم بجانب index.html على الاستضافة'});
-  fsHero.appendChild(cvHint);
+
+  if(data.hero.cvData){
+    const okMsg = el('div',{class:'status-msg',html:'✓ ملف PDF مرفوع ومخزّن جوه content.json — مش محتاج ترفع ملف منفصل على الاستضافة'});
+    fsHero.appendChild(okMsg);
+    const removeBtn = el('button',{class:'danger',type:'button'}); removeBtn.textContent='إزالة الملف المرفوع';
+    removeBtn.style.marginTop='8px';
+    removeBtn.onclick = ()=>{ data.hero.cvData=null; buildForm(); refreshPreview(); };
+    fsHero.appendChild(removeBtn);
+  } else {
+    const cvHint = el('div',{class:'hint',html:'يجب رفع ملف الـPDF بنفس هذا الاسم بجانب index.html على الاستضافة — أو استخدم الزرار تحت عشان يترفع تلقائيًا جوه الملف نفسه'});
+    fsHero.appendChild(cvHint);
+  }
+
+  const cvUploadLabel = el('label',{class:'filebtn',html:'رفع ملف الـ CV مباشرة (PDF)',style:'display:inline-block;margin-top:10px;'});
+  const cvUploadInput = el('input',{type:'file',accept:'.pdf,application/pdf'});
+  cvUploadLabel.appendChild(cvUploadInput);
+  cvUploadInput.addEventListener('change', function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    if(file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
+      alert('من فضلك اختر ملف PDF فقط');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(evt){
+      data.hero.cvData = evt.target.result;
+      data.hero.cvFile = file.name;
+      buildForm();
+      refreshPreview();
+      alert('تم رفع ملف الـ CV بنجاح وحفظه جوه البيانات. نزّل content.json دلوقتي وارفعه على الاستضافة.');
+    };
+    reader.readAsDataURL(file);
+  });
+  fsHero.appendChild(cvUploadLabel);
+  const cvUploadHint = el('div',{class:'hint',html:'لما تستخدم الزرار ده، ملف الـ PDF هيتخزّن جوه content.json نفسه، فمش هتحتاج ترفع ملف PDF منفصل على الاستضافة خالص — بس حجم content.json هيكبر شوية.'});
+  fsHero.appendChild(cvUploadHint);
+
   pane.appendChild(fsHero);
 
   /* --- ABOUT --- */

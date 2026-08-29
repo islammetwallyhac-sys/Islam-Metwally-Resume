@@ -167,7 +167,7 @@ function renderSite(data){
           <p class="role">${h.role}</p>
           <p class="lede">${h.lede}</p>
           <div class="hero-cta">
-            <a href="${h.cvFile}" class="btn solid" download>Download CV</a>
+            <a href="${h.cvData || h.cvFile}" class="btn solid" download="${h.cvFile || 'CV.pdf'}">Download CV</a>
             <a href="#contact" class="btn ghost">Get in touch</a>
           </div>
         </div>
